@@ -2,11 +2,7 @@ name: Run Python Script Daily
 
 on:
   schedule:
-    - cron: '10 10 * * *'  # 매일 오전 10시 10분에 실행
-
-  push:
-    branches:
-      - main  # 메인 브랜치에 푸시할 때마다 실행
+    - cron: '08 00 * * *'  # 매일 오전 10시 10분에 실행
 
 jobs:
   run-python-script:
