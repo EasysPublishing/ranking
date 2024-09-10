@@ -15,11 +15,13 @@ headers = {
 
 # Selenium 설정
 chrome_options = Options()
-chrome_options.add_argument("--headless")  # 헤드리스 모드로 실행 (GUI 없이)
+chrome_options.add_argument("--headless")  # 헤드리스 모드
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--disable-gpu")  # GPU 사용 안 함 (리소스 절약)
-chrome_options.add_argument("--log-level=3")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--window-size=1920,1080")  # 화면 크기 설정
+chrome_options.add_argument("--disable-blink-features=AutomationControlled")  # 자동화 감지 방지
+chrome_options.add_argument("--remote-debugging-port=9222")  # 디버깅 포트 설정
 
 # GitHub Actions에서는 ChromeDriver를 자동으로 다운로드하여 사용
 service = Service('/usr/bin/chromedriver')  # GitHub Actions에서 기본 경로
@@ -36,12 +38,15 @@ import time
 def extract_book_info(url):
     try:
         driver.get(url)
+        WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.XPATH, "//h2[contains(@class, 'gd_name') or contains(@class, 'title')]"))
+        )
 
-        # 여러 XPath 시도
+        # 책 제목 추출 시도
         xpaths = [
             "//h2[@class='gd_name']",
             "//h1[@class='title']",
-            "//div[contains(@class, 'book-title')]",
+            "//div[contains(@class, 'book-title')]"
         ]
 
         book_title = None
@@ -55,6 +60,7 @@ def extract_book_info(url):
 
         if not book_title:
             print(f"책 제목을 찾을 수 없습니다: {url}")
+            save_debug_info(driver)  # 디버깅 정보 저장
             return None, None
 
         # 순위 요소 찾기
@@ -70,7 +76,16 @@ def extract_book_info(url):
 
     except Exception as e:
         print(f"오류 발생 ({url}): {e}")
+        save_debug_info(driver)  # 오류 발생 시 디버깅 정보 저장
         return None, None
+
+def save_debug_info(driver):
+    # 페이지 HTML 저장
+    with open("page_source.html", "w", encoding="utf-8") as f:
+        f.write(driver.page_source)
+    
+    # 스크린샷 저장
+    driver.save_screenshot("screenshot.png")
 
 # 모든 책 링크 목록
 urls = [
