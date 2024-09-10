@@ -33,4 +33,13 @@ jobs:
           if [ ! -f /usr/bin/chromedriver ]; then sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver; fi
 
       - name: Run Python script
-        run: python ranking.py  # 스크립트 파일 이름을 실제 이름으로 변경하세요
+        run: python ranking.py
+
+      - name: Upload Debug Artifacts
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: debug-info
+          path: |
+            page_source.html
+            screenshot.png
