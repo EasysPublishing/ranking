@@ -31,7 +31,7 @@ def extract_book_info(url):
         driver.get(url)
 
         # 페이지 로드 대기
-        WebDriverWait(driver, 20).until(
+        WebDriverWait(driver, 30).until(
             EC.presence_of_element_located((By.XPATH, "//h2[@class='gd_name']"))
         )
 
@@ -41,7 +41,9 @@ def extract_book_info(url):
 
         # 'onclick' 속성을 사용하여 정확한 순위 요소를 선택
         try:
-            rank_element = driver.find_element(By.XPATH, "//a[contains(@onclick, 'openUrl') and contains(text(), '위')]")
+            rank_element = WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.XPATH, "//a[contains(@onclick, 'openUrl') and contains(text(), '위')]"))
+            )
             category_rank = rank_element.text
         except:
             # 순위를 찾을 수 없는 경우 "순위권 외"로 설정
