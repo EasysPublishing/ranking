@@ -31,28 +31,39 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 GAS_URL = "https://script.google.com/macros/s/AKfycbzWHJwgrT5sDStOE4lQ6r3kJYTl9chGGL1kAEKvXk7p8_z74Ww_G6F-yU_wMsne9EuC/exec"
 
 # 책 정보 추출 함수 정의
+import time
+
 def extract_book_info(url):
     try:
-        # 웹 페이지 로드
         driver.get(url)
 
-        # 페이지 로드 대기
-        WebDriverWait(driver, 30).until(
-            EC.presence_of_element_located((By.XPATH, "//h2[@class='gd_name']"))
-        )
+        # 여러 XPath 시도
+        xpaths = [
+            "//h2[@class='gd_name']",
+            "//h1[@class='title']",
+            "//div[contains(@class, 'book-title')]",
+        ]
 
-        # 책 제목을 포함하는 요소 로드
-        title_element = driver.find_element(By.XPATH, "//h2[@class='gd_name']")
-        book_title = title_element.text
+        book_title = None
+        for xpath in xpaths:
+            try:
+                title_element = driver.find_element(By.XPATH, xpath)
+                book_title = title_element.text
+                break
+            except:
+                continue
 
-        # 'onclick' 속성을 사용하여 정확한 순위 요소를 선택
+        if not book_title:
+            print(f"책 제목을 찾을 수 없습니다: {url}")
+            return None, None
+
+        # 순위 요소 찾기
         try:
             rank_element = WebDriverWait(driver, 30).until(
                 EC.presence_of_element_located((By.XPATH, "//a[contains(@onclick, 'openUrl') and contains(text(), '위')]"))
             )
             category_rank = rank_element.text
         except:
-            # 순위를 찾을 수 없는 경우 "순위권 외"로 설정
             category_rank = "순위권 외"
 
         return book_title, category_rank
