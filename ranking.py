@@ -6,6 +6,12 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import time
+
+# HTTP 헤더 추가
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+}
 
 # Selenium 설정
 chrome_options = Options()
@@ -139,6 +145,9 @@ for url in urls:
         print(response.text)  # 응답 확인
     else:
         print(f"{url}에서 책 정보를 찾을 수 없습니다.")
-
+        
+    # 각 요청 사이에 2초 지연을 추가
+    time.sleep(2)
+    
 # 드라이버 종료
 driver.quit()
