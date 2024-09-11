@@ -31,7 +31,7 @@ service = Service('/usr/bin/chromedriver')  # GitHub Actions에서 기본 경로
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # Google Apps Script 웹 애플리케이션 URL
-GAS_URL = "https://script.google.com/macros/s/AKfycbzWHJwgrT5sDStOE4lQ6r3kJYTl9chGGL1kAEKvXk7p8_z74Ww_G6F-yU_wMsne9EuC/exec"
+GAS_URL = "https://script.google.com/macros/s/AKfycbweGXZ3BUW6HxuzZl15UHBBl8ui0aUrD1mQQqobQOhFFpL0Axlu2KTqc3PMY_Y5l2w/exec"
 
 # 책 정보 추출 함수 정의
 import time
