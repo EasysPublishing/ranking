@@ -167,7 +167,12 @@ for url in urls:
     title, rank = extract_book_info(url)
     if title and rank:
         # Google Apps Script에 데이터 전송
-        response = requests.post(GAS_URL, json={"title": title, "rank": rank, "date": current_date})
+        response = requests.post(GAS_URL, json={
+            "title": title,
+            "rank": rank,
+            "date": current_date,
+            "url": url  # URL 값을 추가
+        })
         print(response.text)  # 응답 확인
     else:
         print(f"{url}에서 책 정보를 찾을 수 없습니다.")
