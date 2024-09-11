@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: '30 9 * * *'  # 매일 오전 10시 10분에 실행
 
+  push:
+    branches:
+    - main  # 메인 브랜치에 푸시할 때마다 실행
+
 jobs:
   run-python-script:
     runs-on: ubuntu-latest
