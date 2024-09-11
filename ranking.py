@@ -123,7 +123,6 @@ urls = [
     "https://www.yes24.com/Product/Goods/4333686",    # 윤성우의 열혈 C 프로그래밍
     "https://www.yes24.com/Product/Goods/124009226",  # 처음 만나는 인공지능
     "https://www.yes24.com/Product/Goods/96547422",   # 난생처음 컴퓨팅 사고 with 파이썬
-    "https://www.yes24.com/Product/Goods/61269276",   # 명품 JAVA Programming
     "https://www.yes24.com/Product/Goods/102487130",  # 쉽게 배우는 소프트웨어 공학
     "https://www.yes24.com/Product/Goods/128869338",  # 미라클 HTML5+CSS3+자바스크립트
     "https://www.yes24.com/Product/Goods/116038054",  # 시간순삭 파이썬
