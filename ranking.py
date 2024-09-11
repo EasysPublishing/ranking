@@ -89,7 +89,10 @@ def save_debug_info(driver):
     driver.save_screenshot("screenshot.png")
 
 # 모든 책 링크 목록
-urls = [
+urls = [  # yes24 책 상세 페이지 url을 추가하세요.
+    "https://www.yes24.com/Product/Goods/129133723",  # Do it! HTML+CSS+자바스크립트 웹 표준의 정석
+    "https://www.yes24.com/Product/Goods/129394634",  # 된다! 하루 만에 끝내는 챗GPT 활용법
+    "https://www.yes24.com/Product/Goods/119293186",  # Do it! 점프 투 파이썬
     "https://www.yes24.com/Product/Goods/116777159",  # C언어 Express
     "https://www.yes24.com/Product/Goods/102485981",  # 난생처음 파이썬 프로그래밍
     "https://www.yes24.com/Product/Goods/129047020",  # 두근두근 C언어 with 챗GPT
