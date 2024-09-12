@@ -3,6 +3,8 @@ name: Run Python Script Daily
 on:
   schedule:
     - cron: '30 0 * * *'  # UTC 기준으로 매일 오후 0시 30분, 한국 시간으로는 오전 9시 30분
+    - cron: '0 2 * * *'  # UTC 기준으로 매일 오전 2시 (한국 시간으로 오전 11시)
+  workflow_dispatch:  # 수동 실행 옵션
 
 jobs:
   run-python-script:
